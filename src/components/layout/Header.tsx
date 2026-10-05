@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useRef } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { categories } from '@/data/categories';
-import MobileNav from './MobileNav';
+import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
+import { categories } from "@/data/categories";
+import MobileNav from "./MobileNav";
+import Logo from "@/components/shared/Logo";
 
 export default function Header() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
@@ -16,25 +16,28 @@ export default function Header() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
         setCategoriesOpen(false);
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
     <>
       <header
         className={`sticky top-0 z-40 w-full bg-white border-b border-gray-100 transition-shadow duration-200 ${
-          scrolled ? 'shadow-sm' : ''
+          scrolled ? "shadow-sm" : ""
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -45,31 +48,23 @@ export default function Header() {
               onClick={() => setMobileNavOpen(true)}
               aria-label="Open navigation menu"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M4 6h16M4 12h16M4 18h16" />
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.8}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
               </svg>
             </button>
 
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 flex-shrink-0">
-              <div className="relative w-10 h-10 lg:w-12 lg:h-12 rounded-full overflow-hidden">
-                <Image
-                  src="/logo.jpg"
-                  alt="Amin Organic Mart"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
-              <div className="flex flex-col leading-tight">
-                <span className="font-bold text-primary-dark text-base lg:text-lg tracking-tight">
-                  Amin
-                </span>
-                <span className="text-primary text-xs lg:text-sm font-medium tracking-wide -mt-0.5">
-                  Organic Mart
-                </span>
-              </div>
-            </Link>
+            <Logo />
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-8">
@@ -98,19 +93,26 @@ export default function Header() {
                 >
                   Categories
                   <svg
-                    className={`w-4 h-4 transition-transform duration-200 ${categoriesOpen ? 'rotate-180' : ''}`}
+                    className={`w-4 h-4 transition-transform duration-200 ${categoriesOpen ? "rotate-180" : ""}`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
                   </svg>
                 </button>
 
                 {/* Dropdown Menu */}
                 <div
                   className={`absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 bg-white border border-gray-100 shadow-lg rounded-sm overflow-hidden transition-all duration-200 ${
-                    categoriesOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-1 pointer-events-none'
+                    categoriesOpen
+                      ? "opacity-100 translate-y-0 pointer-events-auto"
+                      : "opacity-0 -translate-y-1 pointer-events-none"
                   }`}
                   onMouseEnter={() => setCategoriesOpen(true)}
                   onMouseLeave={() => setCategoriesOpen(false)}
@@ -143,7 +145,12 @@ export default function Header() {
                 className="flex items-center justify-center w-9 h-9 text-gray-500 hover:text-primary transition-colors rounded-sm"
                 aria-label="Search"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -158,7 +165,12 @@ export default function Header() {
                 className="relative flex items-center justify-center w-9 h-9 text-gray-500 hover:text-primary transition-colors rounded-sm"
                 aria-label="Shopping cart (0 items)"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -176,7 +188,10 @@ export default function Header() {
         </div>
       </header>
 
-      <MobileNav isOpen={mobileNavOpen} onClose={() => setMobileNavOpen(false)} />
+      <MobileNav
+        isOpen={mobileNavOpen}
+        onClose={() => setMobileNavOpen(false)}
+      />
     </>
   );
 }
