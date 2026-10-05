@@ -7,7 +7,7 @@ export const categories: Category[] = [
     name: 'Ghee',
     nameBn: 'ঘি',
     description: 'Pure deshi ghee made from cow milk, traditionally prepared for rich flavor and nutrition.',
-    image: 'https://images.unsplash.com/photo-1631397833250-2bf70c90789f?w=600',
+    image: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=600',
     productCount: 2,
   },
   {
