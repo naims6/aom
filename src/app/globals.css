@@ -101,3 +101,12 @@ body {
   background-color: #2d6a4f;
   color: #ffffff;
 }
+
+/* Hide scrollbar but keep scroll functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
