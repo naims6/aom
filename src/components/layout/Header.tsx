@@ -5,12 +5,14 @@ import Link from "next/link";
 import { categories } from "@/data/categories";
 import MobileNav from "./MobileNav";
 import Logo from "@/components/shared/Logo";
+import { useCart } from "@/context/CartContext";
 
 export default function Header() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [categoriesOpen, setCategoriesOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { totalItems, openCart } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -162,8 +164,9 @@ export default function Header() {
 
               {/* Cart */}
               <button
+                onClick={openCart}
                 className="relative flex items-center justify-center w-9 h-9 text-gray-500 hover:text-primary transition-colors rounded-sm"
-                aria-label="Shopping cart (0 items)"
+                aria-label={`Shopping cart (${totalItems} items)`}
               >
                 <svg
                   className="w-5 h-5"
@@ -179,8 +182,13 @@ export default function Header() {
                   />
                 </svg>
                 {/* Badge */}
-                <span className="absolute -top-1 -right-1 w-4 h-4 bg-primary text-white text-xs rounded-full flex items-center justify-center font-medium leading-none">
-                  0
+                <span
+                  className={`absolute -top-1 -right-1 w-4 h-4 bg-primary text-white text-xs rounded-full flex items-center justify-center font-medium leading-none transition-transform duration-200 ${
+                    totalItems > 0 ? 'scale-100' : 'scale-0'
+                  }`}
+                  aria-hidden="true"
+                >
+                  {totalItems > 9 ? '9+' : totalItems}
                 </span>
               </button>
             </div>

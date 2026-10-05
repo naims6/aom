@@ -6,6 +6,7 @@ import { CONTACT_PHONE, SOCIAL_LINKS } from '@/lib/constants';
 import { formatPrice } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { ChevronRight, ShieldCheck, Truck, RefreshCcw, Leaf } from 'lucide-react';
+import ProductActions from '@/components/products/ProductActions';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -122,31 +123,11 @@ export default async function ProductDetailPage({ params }: Props) {
               {product.description}
             </p>
 
-            {/* Action Buttons — 2×2 grid, all equal width */}
-            <div className="grid grid-cols-2 gap-3">
+            {/* Action Buttons */}
+            <ProductActions product={product} />
 
-              {/* Add to Cart — amber */}
-              <button
-                disabled={!product.inStock}
-                className="inline-flex items-center justify-center gap-2 py-3.5 px-4 font-medium text-sm rounded-sm bg-amber-500 hover:bg-amber-600 text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-                {product.inStock ? 'Add to Cart' : 'Out of Stock'}
-              </button>
-
-              {/* Buy Now — primary green */}
-              <button
-                disabled={!product.inStock}
-                className="inline-flex items-center justify-center gap-2 py-3.5 px-4 font-medium text-sm rounded-sm bg-primary text-white hover:bg-primary-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-                Buy Now
-              </button>
-
+            {/* Contact Buttons */}
+            <div className="grid grid-cols-2 gap-3 mt-3">
               {/* Order on WhatsApp — WhatsApp green */}
               <a
                 href={`${SOCIAL_LINKS.whatsapp}?text=${encodeURIComponent(
@@ -172,7 +153,6 @@ export default async function ProductDetailPage({ params }: Props) {
                 </svg>
                 Call for Order
               </a>
-
             </div>
 
             {/* Trust badges */}

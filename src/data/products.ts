@@ -33,7 +33,7 @@ export const products: Product[] = [
     description: 'The 1kg pack of our Deshi Ghee is perfect for households that cook with ghee regularly. Same traditional preparation, bigger value.',
     inStock: true,
     featured: true,
-    badge: 'bestseller',
+    badge: 'new',
     tags: ['ghee', 'organic', 'dairy', 'family-size'],
   },
   {
@@ -51,7 +51,7 @@ export const products: Product[] = [
     description: "Collected by experienced honey hunters from the Sundarbans — the world's largest mangrove forest. This honey is raw, unfiltered, and free from any additives or preservatives.",
     inStock: true,
     featured: true,
-    badge: 'bestseller',
+    badge: 'new',
     tags: ['honey', 'sundarban', 'raw', 'natural'],
   },
   {
@@ -136,7 +136,7 @@ export const products: Product[] = [
     description: 'Our 1kg raw honey is ideal for families who love honey in their daily routine. Completely unprocessed, it retains all natural enzymes, pollens, and antioxidants.',
     inStock: true,
     featured: true,
-    badge: 'bestseller',
+    badge: 'new',
     tags: ['honey', 'raw', 'natural', 'family-size'],
   },
   {

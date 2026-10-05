@@ -2,11 +2,14 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { ShoppingCart, CheckCircle } from 'lucide-react';
+import { useState } from 'react';
 import { Product } from '@/types';
 import { formatPrice } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { useCart } from '@/context/CartContext';
 
 interface ProductCardProps {
   product: Product;
@@ -19,10 +22,21 @@ const BADGE_VARIANT: Record<string, 'default' | 'secondary' | 'destructive' | 'o
 };
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const { addItem, openCart } = useCart();
+  const [added, setAdded] = useState(false);
+
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
-    console.log('Add to cart:', product.id, product.name);
-    // Cart functionality to be implemented
+    e.stopPropagation();
+
+    if (!product.inStock) return;
+
+    addItem(product);
+    openCart();
+
+    // Brief "added" feedback
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1500);
   };
 
   return (
@@ -85,10 +99,28 @@ export default function ProductCard({ product }: ProductCardProps) {
           <Button
             onClick={handleAddToCart}
             disabled={!product.inStock}
-            className="w-full rounded-sm bg-primary hover:bg-primary-dark text-white text-sm font-medium"
+            className={`w-full rounded-sm text-white text-sm font-medium transition-colors ${
+              added
+                ? 'bg-green-500 hover:bg-green-600'
+                : 'bg-primary hover:bg-primary-dark'
+            }`}
             aria-label={`Add ${product.name} to cart`}
           >
-            {product.inStock ? 'Add to Cart' : 'Out of Stock'}
+            {product.inStock ? (
+              added ? (
+                <>
+                  <CheckCircle className="w-4 h-4 mr-1.5" />
+                  Added!
+                </>
+              ) : (
+                <>
+                  <ShoppingCart className="w-4 h-4 mr-1.5" />
+                  Add to Cart
+                </>
+              )
+            ) : (
+              'Out of Stock'
+            )}
           </Button>
         </CardContent>
       </Card>
